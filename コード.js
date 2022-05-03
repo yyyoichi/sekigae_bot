@@ -1,5 +1,5 @@
 /**
- * @description 席替えをトリガーで毎朝9時に実施する
+ * @description スプレッドシートから名前を取得して席替え。プロパティに保存。トリガーで毎朝9時に実施する。
  */
 function create() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -32,6 +32,9 @@ function create() {
   const json = JSON.stringify(values);
   PropertiesService.getScriptProperties().setProperty('seki', json);
 }
+/**
+ * @description プロパティの席替えリストをLINEメッセージに変換し返却。
+ */
 function getMessages() {
   //プロパティから名前のランダムリスト+日付を取得
   const json = PropertiesService.getScriptProperties().getProperty('seki');
@@ -55,6 +58,9 @@ function getMessages() {
   console.log(messages)
   return messages;
 }
+/**
+ * @description LINEからメッセージを受信すると起動。「席替え！」を受信すると席替え内容を返す。
+ */
 function doPost(e) {
   try {
     const event = JSON.parse(e.postData.contents).events[0];
