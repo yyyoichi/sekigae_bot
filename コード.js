@@ -82,7 +82,7 @@ function doPost(e) {
         "Authorization": 'Bearer ' + ACCESS_TOKEN
       },
       "method": "post",
-      "payload": JSON.stringify({ replyToken: replyToken, messages: messages }),
+      "payload": JSON.stringify({ replyToken, messages }),
       muteHttpExceptions: true
     };
     var response = UrlFetchApp.fetch(url, options);
